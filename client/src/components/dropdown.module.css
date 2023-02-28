@@ -1,0 +1,24 @@
+.dropdown {
+  color: #000000;
+  cursor: pointer;
+  margin: 2rem 0rem;
+}
+
+select {
+  appearance: none;
+}
+
+.controlClassName {
+  width: 100%;
+  font-size: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.menuClassName > *:hover {
+  background-color: #cac8c8;
+}
+
+.menuClassName > * {
+  padding: 0.5rem 0;
+}
