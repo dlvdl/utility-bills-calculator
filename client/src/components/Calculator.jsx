@@ -31,6 +31,8 @@ const Calculator = () => {
         setKindOfUtility={setKindOfUtility}
         kindOfUtilty={kindOfUtilty}
         today={today}
+        resOfCalc={resOfCalc}
+        setResOfCalc={setResOfCalc}
       />
       <div className="flex gap-2 f-justify-content-center f-align-itm-str">
         <Form

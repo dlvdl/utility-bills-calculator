@@ -13,9 +13,10 @@ function Form(props) {
   // Event listeners
   const computeBtnHandler = (e) => {
     const result = calc.computeCost(currentVal, prevVal)
-    const { toPay, diff } = result
     console.log(result)
-    setResOfCalc({ ...resOfCalc, diff, cost: toPay })
+    const { cost, diff } = result
+    console.log(result)
+    setResOfCalc({ ...resOfCalc, diff, cost })
   }
 
   return (

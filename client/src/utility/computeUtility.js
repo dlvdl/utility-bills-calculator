@@ -21,7 +21,7 @@ class UtilityCalculator {
 
     if (this.diff > 0) {
       this.cost = Math.round(this.diff * this.tariff)
-      return new Operation(
+      return factory(
         this.currentVal,
         this.date,
         this.diff,
@@ -35,17 +35,10 @@ class UtilityCalculator {
   }
 }
 
-class Operation {
-  constructor(amount, date, diff, toPay, type, tariff) {
-    this.amount = amount
-    this.date = date
-    this.diff = diff
-    this.toPay = toPay
-    this.type = type
-    this.tariff = tariff
-  }
-}
-
 export const calculator = (tariff, typeOfUtility, date) => {
   return new UtilityCalculator(tariff, typeOfUtility, date)
+}
+
+const factory = (currentVal, date, diff, cost, type, tariff) => {
+  return { currentVal, date, diff, cost, type, tariff }
 }
