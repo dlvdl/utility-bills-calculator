@@ -4,18 +4,15 @@ import { useContext, useState } from 'react'
 import { calculator } from '../utility/computeUtility'
 
 function Form(props) {
-  const { kindOfUtilty, units, setResOfCalc, resOfCalc, today } = props
-  const [date, setDate] = useState(today.toISOString().slice(0, 10))
+  const { kindOfUtilty, units, setResOfCalc, resOfCalc, today, setDate } = props
+
   const [currentVal, setCurrentVal] = useState({ value: 0 })
   const [prevVal, setPrevVal] = useState({ value: 0 })
   const calc = calculator(7.99, kindOfUtilty, today)
 
   // Event listeners
   const computeBtnHandler = (e) => {
-    const result = calc.computeCost(currentVal, prevVal)
-    console.log(result)
-    const { cost, diff } = result
-    console.log(result)
+    const { cost, diff } = calc.computeCost(currentVal, prevVal)
     setResOfCalc({ ...resOfCalc, diff, cost })
   }
 
@@ -49,7 +46,7 @@ function Form(props) {
           <input
             type="date"
             name="date"
-            value={date}
+            value={today}
             onChange={(e) => {
               setDate(e.target.value)
             }}

@@ -6,14 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 const DropdownMenu = (props) => {
-  const { getUtilities } = useContext(GlobalContext)
-  const { options, setKindOfUtility, kindOfUtilty, today } = props
+  const { options, setKindOfUtility } = props
   const downIcon = <FontAwesomeIcon icon={faChevronDown} />
   const upIcon = <FontAwesomeIcon icon={faChevronUp} />
 
   const changeHandler = (e) => {
     setKindOfUtility(e.value)
-    console.log(getUtilities())
   }
 
   return (
