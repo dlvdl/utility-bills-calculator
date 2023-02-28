@@ -4,11 +4,12 @@ import { useContext, useState } from 'react'
 import { calculator } from '../utility/computeUtility'
 
 function Form(props) {
-  const { kindOfUtilty, units, setResOfCalc, resOfCalc, today, setDate } = props
+  const { typeOfUtility, units, setResOfCalc, resOfCalc, today, setDate } =
+    props
 
   const [currentVal, setCurrentVal] = useState({ value: 0 })
   const [prevVal, setPrevVal] = useState({ value: 0 })
-  const calc = calculator(7.99, kindOfUtilty, today)
+  const calc = calculator(7.99, typeOfUtility, today)
 
   // Event listeners
   const computeBtnHandler = (e) => {
@@ -31,7 +32,7 @@ function Form(props) {
             value={Number(currentVal).toString()}
             onChange={(e) => setCurrentVal(+e.target.value)}
           />
-          <label htmlFor="current">Current {units.get(kindOfUtilty)}</label>
+          <label htmlFor="current">Current {units.get(typeOfUtility)}</label>
         </div>
         <div>
           <input
@@ -40,7 +41,7 @@ function Form(props) {
             value={Number(prevVal).toString()}
             onChange={(e) => setPrevVal(+e.target.value)}
           />
-          <label htmlFor="previous">Previous {units.get(kindOfUtilty)}</label>
+          <label htmlFor="previous">Previous {units.get(typeOfUtility)}</label>
         </div>
         <div>
           <input

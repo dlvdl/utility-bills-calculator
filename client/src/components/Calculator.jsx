@@ -1,5 +1,6 @@
 import { React, useState, useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState'
+import { findLastOperation } from '../utility/findLastOperation'
 import DropdownMenu from './Dropdown'
 import Form from './Form'
 import Result from './Result'
@@ -19,7 +20,7 @@ const Calculator = () => {
   const today = new Date()
   const [date, setDate] = useState(today.toISOString().slice(0, 10))
   const { getUtilities } = useContext(GlobalContext)
-  const [kindOfUtilty, setKindOfUtility] = useState(options[0].value)
+  const [typeOfUtility, setTypeOfUtility] = useState(options[0].value)
   const [resOfCalc, setResOfCalc] = useState({
     cost: 0,
     diff: 0,
@@ -29,18 +30,14 @@ const Calculator = () => {
 
   const { utilities } = getUtilities()
 
-  console.log(
-    utilities.forEach((e) => {
-      console.log(kindOfUtilty === e.type)
-    })
-  )
+  console.log(findLastOperation())
 
   return (
     <div className="container pos-relative">
-      <DropdownMenu options={options} setKindOfUtility={setKindOfUtility} />
+      <DropdownMenu options={options} setTypeOfUtility={setTypeOfUtility} />
       <div className="flex gap-2 f-justify-content-center f-align-itm-str">
         <Form
-          kindOfUtilty={kindOfUtilty}
+          typeOfUtility={typeOfUtility}
           units={units}
           resOfCalc={resOfCalc}
           setResOfCalc={setResOfCalc}
@@ -48,7 +45,7 @@ const Calculator = () => {
           setDate={setDate}
         />
         <Result
-          kindOfUtilty={kindOfUtilty}
+          typeOfUtility={typeOfUtility}
           units={units}
           resOfCalc={resOfCalc}
         />
