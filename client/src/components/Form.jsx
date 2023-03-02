@@ -4,16 +4,26 @@ import { useContext, useState } from 'react'
 import { calculator } from '../utility/computeUtility'
 
 function Form(props) {
-  const { typeOfUtility, units, setResOfCalc, resOfCalc, today, setDate } =
-    props
+  const {
+    typeOfUtility,
+    units,
+    setResOfCalc,
+    resOfCalc,
+    today,
+    setDate,
+    lastOperation,
+  } = props
+
+  const initPrev = lastOperation ? lastOperation.current : 0
+  console.log(initPrev)
 
   const [currentVal, setCurrentVal] = useState({ value: 0 })
-  const [prevVal, setPrevVal] = useState({ value: 0 })
+  const [prevVal, setPrevVal] = useState({ value: initPrev })
   const calc = calculator(7.99, typeOfUtility, today)
 
   // Event listeners
   const computeBtnHandler = (e) => {
-    const { cost, diff } = calc.computeCost(currentVal, prevVal)
+    const { cost, diff } = calc.computeCost(currentVal, prevVal.value)
     setResOfCalc({ ...resOfCalc, diff, cost })
   }
 
@@ -38,7 +48,8 @@ function Form(props) {
           <input
             type="number"
             name="previous"
-            value={Number(prevVal).toString()}
+            defaultValue={String(prevVal.value)}
+            //value={Number(prevVal).toString()}
             onChange={(e) => setPrevVal(+e.target.value)}
           />
           <label htmlFor="previous">Previous {units.get(typeOfUtility)}</label>

@@ -30,7 +30,7 @@ const Calculator = () => {
 
   const { utilities } = getUtilities()
 
-  console.log(findLastOperation())
+  const lastOperation = findLastOperation(typeOfUtility, date, utilities)
 
   return (
     <div className="container pos-relative">
@@ -43,6 +43,7 @@ const Calculator = () => {
           setResOfCalc={setResOfCalc}
           today={date}
           setDate={setDate}
+          lastOperation={lastOperation}
         />
         <Result
           typeOfUtility={typeOfUtility}
