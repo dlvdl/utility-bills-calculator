@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './navigation.module.css'
 
 function Navigation() {
@@ -6,7 +7,7 @@ function Navigation() {
     <nav>
       <ul className="flex gap-1">
         <li>
-          <a href="/calculator">Main</a>
+          <Link to="/calculator">Main</Link>
         </li>
         <li>
           <a href="/history">History</a>
