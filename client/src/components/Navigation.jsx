@@ -6,13 +6,13 @@ function Navigation() {
     <nav>
       <ul className="flex gap-1">
         <li>
-          <a href="">Main</a>
+          <a href="/calculator">Main</a>
         </li>
         <li>
-          <a href="">History</a>
+          <a href="/history">History</a>
         </li>
         <li>
-          <a href="">Settings</a>
+          <a href="/settings">Settings</a>
         </li>
       </ul>
     </nav>

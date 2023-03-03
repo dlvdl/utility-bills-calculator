@@ -14,17 +14,13 @@ function Form(props) {
     lastOperation,
   } = props
 
-  const initPrev = lastOperation ? lastOperation.current : 0
-  console.log(initPrev)
-
   const [currentVal, setCurrentVal] = useState({ value: 0 })
-  const [prevVal, setPrevVal] = useState({ value: initPrev })
   const calc = calculator(7.99, typeOfUtility, today)
 
   // Event listeners
   const computeBtnHandler = (e) => {
-    const { cost, diff } = calc.computeCost(currentVal, prevVal.value)
-    setResOfCalc({ ...resOfCalc, diff, cost })
+    //const output = calc.computeCost(currentVal, prevVal.value)
+    //setResOfCalc({ ...resOfCalc, ...output })
   }
 
   return (
@@ -43,16 +39,6 @@ function Form(props) {
             onChange={(e) => setCurrentVal(+e.target.value)}
           />
           <label htmlFor="current">Current {units.get(typeOfUtility)}</label>
-        </div>
-        <div>
-          <input
-            type="number"
-            name="previous"
-            defaultValue={String(prevVal.value)}
-            //value={Number(prevVal).toString()}
-            onChange={(e) => setPrevVal(+e.target.value)}
-          />
-          <label htmlFor="previous">Previous {units.get(typeOfUtility)}</label>
         </div>
         <div>
           <input

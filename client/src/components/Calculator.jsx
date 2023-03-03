@@ -21,16 +21,11 @@ const Calculator = () => {
   const [date, setDate] = useState(today.toISOString().slice(0, 10))
   const { getUtilities } = useContext(GlobalContext)
   const [typeOfUtility, setTypeOfUtility] = useState(options[0].value)
-  const [resOfCalc, setResOfCalc] = useState({
-    cost: 0,
-    diff: 0,
-    costLastMontn: 0,
-    diffLastMonth: 0,
-  })
-
   const { utilities } = getUtilities()
-
   const lastOperation = findLastOperation(typeOfUtility, date, utilities)
+  console.log(lastOperation)
+
+  const [resOfCalc, setResOfCalc] = useState({})
 
   return (
     <div className="container pos-relative">
