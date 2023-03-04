@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { GlobalContext } from '../context/GlobalState'
+import styles from './settings.module.css'
 
 function Settings() {
   const [showSettings, setSettings] = useState(false)
@@ -15,7 +16,7 @@ function Settings() {
   return (
     <div className="container">
       <div className="flex f-direction-column">
-        <h3>Settings</h3>
+        <h3 className={styles.h3}>Settings</h3>
         <div>
           <form action="">
             <table>
