@@ -4,15 +4,7 @@ import { useContext, useState } from 'react'
 import { calculator } from '../utility/computeUtility'
 
 function Form(props) {
-  const {
-    typeOfUtility,
-    units,
-    setResOfCalc,
-    resOfCalc,
-    today,
-    setDate,
-    lastOperation,
-  } = props
+  const { typeOfUtility, units, today, setDate } = props
 
   const [currentVal, setCurrentVal] = useState({ value: 0 })
   const calc = calculator(7.99, typeOfUtility, today)

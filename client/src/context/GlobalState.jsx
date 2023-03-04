@@ -1,5 +1,6 @@
 import { createContext, useReducer } from 'react'
 import Mock from '../mock/utilities.json'
+import MockSettings from '../mock/settings.json'
 
 // Initial State
 const initialState = {
@@ -20,8 +21,15 @@ export const GlobalProvider = ({ children }) => {
     return Mock
   }
 
+  function getSettings() {
+    const { Settings } = MockSettings
+    return Settings
+  }
+
   return (
-    <GlobalContext.Provider value={{ getUtilities, state: initialState }}>
+    <GlobalContext.Provider
+      value={{ getSettings, getUtilities, state: initialState }}
+    >
       {children}
     </GlobalContext.Provider>
   )

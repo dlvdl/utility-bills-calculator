@@ -13,7 +13,7 @@ function Navigation() {
           <a href="/history">History</a>
         </li>
         <li>
-          <a href="/settings">Settings</a>
+          <Link to="/settings">Settings</Link>
         </li>
       </ul>
     </nav>

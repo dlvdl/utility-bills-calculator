@@ -27,6 +27,10 @@
   align-items: stretch;
 }
 
+.f-direction-column {
+  flex-direction: column;
+}
+
 .gap-1 {
   gap: 1rem;
 }
