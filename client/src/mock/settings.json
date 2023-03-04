@@ -10,8 +10,15 @@
     {
       "id": 2,
       "date": "2022-06-01T10:30:00.000Z",
-      "amount": 15131,
+      "amount": 1538,
       "type": "Electricity",
+      "tariff": 5.87
+    },
+    {
+      "id": 2,
+      "date": "2022-06-01T10:30:00.000Z",
+      "amount": 15131,
+      "type": "Natural Gas",
       "tariff": 5.87
     }
   ]
