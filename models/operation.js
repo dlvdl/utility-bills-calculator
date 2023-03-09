@@ -35,4 +35,4 @@ const OperationSchema = new mongoose.Schema({
   },
 })
 
-module.exports = { OperationSchema }
+module.exports = mongoose.model('Operation', OperationSchema)

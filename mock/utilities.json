@@ -1,85 +1,76 @@
 {
   "utilities": [
     {
-      "id": 1,
-      "current": 75,
+      "currentAmount": 75,
       "date": "2022-11-01T10:30:00.000Z",
       "diff": 30,
-      "to_pay": 15032,
+      "toPay": 15032,
       "type": "Electricity",
-      "costOfutility": 7.99
+      "tariff": 7.99
     },
     {
-      "id": 2,
-      "current": 100,
+      "currentAmount": 100,
       "date": "2022-12-01T10:30:00.000Z",
       "diff": 35,
-      "to_pay": 17032,
+      "toPay": 17032,
       "type": "Natural Gas",
-      "costOfutility": 8.99
+      "tariff": 8.99
     },
     {
-      "id": 3,
-      "current": 150,
+      "currentAmount": 150,
       "date": "2023-01-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 23050,
+      "toPay": 23050,
       "type": "Water",
-      "costOfutility": 5.99
+      "tariff": 5.99
     },
     {
-      "id": 4,
-      "current": 200,
+      "currentAmount": 200,
       "date": "2023-02-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 29068,
+      "toPay": 29068,
       "type": "Electricity",
-      "costOfutility": 7.99
+      "tariff": 7.99
     },
     {
-      "id": 5,
-      "current": 250,
+      "currentAmount": 250,
       "date": "2023-03-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 35086,
+      "toPay": 35086,
       "type": "Natural Gas",
-      "costOfutility": 8.99
+      "tariff": 8.99
     },
     {
-      "id": 6,
-      "current": 300,
+      "currentAmount": 300,
       "date": "2023-04-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 41104,
+      "toPay": 41104,
       "type": "Water",
-      "costOfutility": 5.99
+      "tariff": 5.99
     },
     {
-      "id": 7,
-      "current": 350,
+      "currentAmount": 350,
       "date": "2023-05-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 47122,
+      "toPay": 47122,
       "type": "Electricity",
-      "costOfutility": 7.99
+      "tariff": 7.99
     },
     {
-      "id": 8,
-      "current": 400,
+      "currentAmount": 400,
       "date": "2023-06-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 53140,
+      "toPay": 53140,
       "type": "Natural Gas",
-      "costOfutility": 8.99
+      "tariff": 8.99
     },
     {
-      "id": 9,
-      "current": 450,
+      "currentAmount": 450,
       "date": "2023-07-01T10:30:00.000Z",
       "diff": 50,
-      "to_pay": 59158,
+      "toPay": 59158,
       "type": "Water",
-      "costOfutility": 5.99
+      "tariff": 5.99
     }
   ]
 }
