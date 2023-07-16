@@ -1,0 +1,34 @@
+{
+  "name": "utilities-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "server": "nodemon app.js",
+    "client": "cd client && npm run dev",
+    "start": "concurrently \"npm run client\" \"npm run server\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlvdl/utility-bills-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlvdl/utility-bills-calculator/issues"
+  },
+  "homepage": "https://github.com/dlvdl/utility-bills-calculator#readme",
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^7.0.1"
+  }
+}

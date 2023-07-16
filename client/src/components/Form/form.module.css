@@ -1,0 +1,46 @@
+.formControl {
+  background-color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: 400;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: max-height 5s ease-in;
+}
+
+.formControl > h3 {
+  text-transform: capitalize;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(88, 80, 236, 0.3);
+  font-weight: inherit;
+}
+
+.form > div {
+  padding: 1rem 1rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.form > div > input {
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background-color: #d9d9d9;
+  color: #969ba0;
+  padding: 0.5rem 0.5rem;
+}
+
+form > div > input::placeholder {
+  color: #969ba0;
+}
+
+.form > div > button {
+  border-radius: 10px;
+  background-color: #5850ec;
+  color: #ffffff;
+  padding: 10px 1.2rem;
+  border: none;
+  cursor: pointer;
+}

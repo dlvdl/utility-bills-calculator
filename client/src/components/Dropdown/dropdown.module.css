@@ -1,0 +1,65 @@
+.dropdown {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0rem 4rem 0rem;
+}
+
+.dropdown_menu {
+  top: 50px;
+  background-color: white;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 1rem 2rem;
+  position: absolute;
+  border-radius: 0.45rem;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 1.5rem;
+  color: black;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  border-radius: 0.45rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+}
+
+.dropdown_item {
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  border-radius: 0.45rem;
+  padding: 0 1rem;
+  text-align: left;
+}
+
+.dropdown_item:hover {
+  background-color: azure;
+}
+
+/* For css transition group */
+
+.dropdown_menu_enter {
+  opacity: 0;
+}
+
+.dropdown_menu_enter_active {
+  opacity: 1;
+  transition: all 200ms ease;
+}
+
+.dropdown_menu_exit {
+  opacity: 1;
+}
+
+.dropdown_menu_exit_active {
+  opacity: 0;
+  transition: all 200ms ease;
+}
