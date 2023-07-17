@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const OperationSchema = new mongoose.Schema({
-  currentReadings: {
+  currReadings: {
     type: Number,
     required: [true, 'Please provide the amount of the current reading'],
     maxLength: [50, 'Amount cannot be longer than 50 characters'],
@@ -10,7 +10,7 @@ const OperationSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Please provide the date of an operation'],
   },
-  difference: {
+  diff: {
     type: Number,
     required: [true, 'Please provide the difference between readings'],
     maxLength: [50, 'Difference cannot be longer than 50 characters'],
@@ -30,14 +30,14 @@ const OperationSchema = new mongoose.Schema({
     required: [true, 'Please provide the tariff for the utility'],
     maxLength: [50, 'tariff of utilities cannot be longer than 50 characters'],
   },
-  paid: {
-    type: Boolean,
-    required: [
-      true,
-      'Please provide information on whether the operation has been paid',
-    ],
-    maxLength: [50, 'tariff of utilities cannot be longer than 50 characters'],
-  },
+  // paid: {
+  //   type: Boolean,
+  //   required: [
+  //     true,
+  //     'Please provide information on whether the operation has been paid',
+  //   ],
+  //   maxLength: [50, 'tariff of utilities cannot be longer than 50 characters'],
+  // },
 })
 
 module.exports = mongoose.model('Operation', OperationSchema)
