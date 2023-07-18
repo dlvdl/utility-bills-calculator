@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import SaveIcon from '@mui/icons-material/Save'
 import { useSettingsContext } from '../../context/settings_context'
-import { Factory } from '../../utility/factory'
+import {Factory} from '../../utility/factory'
 
 const CreateTariff = () => {
   const {

@@ -1,14 +1,16 @@
 const asyncWrapper = require('../middleware/asyncWrapper')
 const Setting = require('../models/setting')
 
-const getAllSettings = asyncWrapper(async (req, res, next) => {
-  const settings = await Setting.find({})
-  res.status(200).json({ settings })
+const getSettings = asyncWrapper(async (req, res, next) => {
+  const {id} = req.query
+  const settings = id ? await Setting.findById(id) : await Setting.find({})
+  
+  res.status(200).json({data: settings, msg: 'Settings succesfully finded'})
 })
 
 const createSettings = asyncWrapper(async (req, res, next) => {
   const setting = await Setting.create(req.body)
-  res.status(200).json({ setting })
+  res.status(200).json({data: setting, msg: 'Setting succesfullly created!' })
 })
 
 const deleteSetting = asyncWrapper(async (req, res, next) => {
@@ -20,4 +22,4 @@ const deleteSetting = asyncWrapper(async (req, res, next) => {
   res.status(200).json({ msg: `Setting ${settingID}  deleted`, task: task })
 })
 
-module.exports = { getAllSettings, createSettings, deleteSetting }
+module.exports = { getSettings, createSettings, deleteSetting }

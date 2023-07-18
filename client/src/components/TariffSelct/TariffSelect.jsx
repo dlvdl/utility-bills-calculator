@@ -1,20 +1,19 @@
-import * as React from 'react'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import { useSettingsContext } from '../../context/settings_context'
+import { useState } from "react"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import FormControl from "@mui/material/FormControl"
+import Select from "@mui/material/Select"
+import { useSettingsContext } from "../../context/settings_context"
 
 export default function TariffSelect(props) {
-  const { onSelectTariffHandler } = props
-  const [tariff, setTariff] = React.useState('')
-  const { settings, settings_loading } = useSettingsContext()
-
-  const { settings: tarriffs } = settings
+  const [tariff, setTariff] = useState("")
+  const { settings, changeCurrentTariff } = useSettingsContext()
 
   const handleChange = (event) => {
+    console.log(event.target.value)
+    let id = event.target.value
     setTariff(event.target.value)
-    onSelectTariffHandler(+tariff)
+    changeCurrentTariff(id)
   }
 
   return (
@@ -29,12 +28,9 @@ export default function TariffSelect(props) {
           autoWidth
           label="Tariff"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {tarriffs !== undefined &&
-            tarriffs.map((tariff) => (
-              <MenuItem key={tariff._id} value={tariff.cost}>
+          {settings !== undefined &&
+            settings.map((tariff) => (
+              <MenuItem key={tariff._id} value={tariff._id}>
                 {tariff.name}
               </MenuItem>
             ))}

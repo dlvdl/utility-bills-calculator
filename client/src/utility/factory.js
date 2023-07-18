@@ -1,17 +1,17 @@
 export class Factory {
   constructor(type, params) {
     switch (type) {
-      case 'Record':
+      case "Record":
         return new Record(params)
 
-      case 'Setting':
+      case "Setting":
         return new Setting(params)
 
-      case 'ResultOfCalculation':
+      case "ResultOfCalculation":
         return new ResultOfCalculation(params)
 
       default:
-        return 'no matching'
+        return "no matching"
     }
   }
 }
@@ -25,22 +25,11 @@ class Setting {
 }
 
 class Record {
-  constructor({
-    currentReadings,
-    date,
-    difference,
-    cost,
-    service,
-    tariff,
-    paid,
-  } = {}) {
-    this.currentReadings = currentReadings
-    this.date = date
-    this.difference = difference
-    this.cost = cost
+  constructor({ currReadings, prevReadings, service, tariff } = {}) {
+    this.currReadings = currReadings
+    this.prevReadings = prevReadings
     this.service = service
     this.tariff = tariff
-    this.paid = paid
   }
 }
 

@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { createContext, useReducer, useEffect, useContext } from 'react'
+import axios from "axios"
+import { createContext, useReducer, useEffect, useContext } from "react"
 import {
   GET_SETTINGS_BEGIN,
   GET_SETTINGS_SUCCESS,
@@ -10,8 +10,9 @@ import {
   DELETE_SETTING_BEGIN,
   DELETE_SETTING_SUCCESS,
   DELETE_SETTING_ERROR,
-} from '../actions'
-import reducer from '../reducers/settings_reducer'
+  CHANGE_CURRENT_TARIFF,
+} from "../actions"
+import reducer from "../reducers/settings_reducer"
 
 // Initial State
 const initialState = {
@@ -23,10 +24,11 @@ const initialState = {
   delete_setting_error: false,
   refresh_settings: false,
   settings: [],
+  current_tariff: null,
 }
 
 //for testing
-let url = '/api/v1/settings'
+let url = "/api/v1/settings"
 
 // Create context
 const SettingsContext = createContext()
@@ -35,13 +37,13 @@ const SettingsContext = createContext()
 export const SettingsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const fetchSettings = async (url = '/api/v1/settings') => {
+  const fetchSettings = async () => {
     dispatch({ type: GET_SETTINGS_BEGIN })
-
     try {
       const response = await axios.get(url)
       const settings = response.data
-      dispatch({ type: GET_SETTINGS_SUCCESS, payload: settings })
+
+      dispatch({ type: GET_SETTINGS_SUCCESS, payload: settings.data })
     } catch (error) {
       dispatch({ type: GET_SETTINGS_ERROR })
     }
@@ -49,7 +51,6 @@ export const SettingsProvider = ({ children }) => {
 
   const createNewSetting = async (url, data) => {
     dispatch({ type: CREATE_ONE_SETTING_BEGIN })
-
     try {
       const response = await axios.post(url, data)
       dispatch({ type: CREATE_ONE_SETTING_SUCCESS })
@@ -60,7 +61,6 @@ export const SettingsProvider = ({ children }) => {
 
   const deleteOneSetting = async (id) => {
     dispatch({ type: DELETE_SETTING_BEGIN })
-
     try {
       const response = await axios.delete(`${url}/${id}`)
       const deletedSetting = response.data
@@ -70,13 +70,28 @@ export const SettingsProvider = ({ children }) => {
     }
   }
 
+  const changeCurrentTariff = async (id) => {
+    let route = url + "?id=" + id
+    try {
+      const res = await axios.get(route)
+      const tariff = res.data
+      dispatch({ type: CHANGE_CURRENT_TARIFF, payload: tariff.data })
+    } catch {}
+  }
+
   useEffect(() => {
-    fetchSettings()
+    fetchSettings("/api/v1/settings")
   }, [])
 
   return (
     <SettingsContext.Provider
-      value={{ ...state, createNewSetting, deleteOneSetting, fetchSettings }}
+      value={{
+        ...state,
+        createNewSetting,
+        deleteOneSetting,
+        fetchSettings,
+        changeCurrentTariff,
+      }}
     >
       {children}
     </SettingsContext.Provider>

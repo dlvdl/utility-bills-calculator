@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { createContext, useReducer, useEffect, useContext } from 'react'
+import axios from "axios"
+import { createContext, useReducer, useEffect, useContext } from "react"
 import {
   GET_OPERATIONS_BEGIN,
   GET_OPERATIONS_SUCCESS,
@@ -9,10 +9,13 @@ import {
   CREATE_ONE_OPERATION_BEGIN,
   CREATE_ONE_OPERATION_SUCCESS,
   CREATE_ONE_OPERATION_ERROR,
-} from '../actions'
-import reducer from '../reducers/operations_reducer'
+  SAVE_ONE_OPERATION_BEGIN,
+  SAVE_ONE_OPERATION_ERROR,
+  SAVE_ONE_OPERATION_SUCCESS,
+} from "../actions"
+import reducer from "../reducers/operations_reducer"
 
-const url = '/api/v1/operations'
+const url = "/api/v1/operations"
 
 const initialState = {
   operations_loading: false,
@@ -22,6 +25,8 @@ const initialState = {
   one_operation_error: false,
   one_operation: null,
   create_one_operation_error: false,
+  save_one_operation_error: false,
+  save_one_operation_loading: false,
 }
 
 const OperationsContext = createContext()
@@ -58,9 +63,25 @@ export const OperationsProvider = ({ children }) => {
     try {
       const response = await axios.post(url, operation)
       const createdOperation = response.data
-      dispatch({ type: CREATE_ONE_OPERATION_SUCCESS })
+      dispatch({
+        type: CREATE_ONE_OPERATION_SUCCESS,
+        payload: createdOperation.data,
+      })
     } catch (error) {
       dispatch({ type: CREATE_ONE_OPERATION_ERROR })
+    }
+  }
+
+  const saveOneOperation = async (operation) => {
+    dispatch({ type: SAVE_ONE_OPERATION_BEGIN })
+    let path = url + "/save"
+
+    try {
+      const response = await axios.post(path, operation)
+      const savedOperation = response.data
+      dispatch({ type: SAVE_ONE_OPERATION_SUCCESS })
+    } catch (error) {
+      dispatch({ type: SAVE_ONE_OPERATION_ERROR })
     }
   }
 
@@ -70,7 +91,12 @@ export const OperationsProvider = ({ children }) => {
 
   return (
     <OperationsContext.Provider
-      value={{ ...state, fetchOneOperation, createOneOperation }}
+      value={{
+        ...state,
+        fetchOneOperation,
+        createOneOperation,
+        saveOneOperation,
+      }}
     >
       {children}
     </OperationsContext.Provider>

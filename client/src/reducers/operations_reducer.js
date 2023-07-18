@@ -8,7 +8,10 @@ import {
   CREATE_ONE_OPERATION_BEGIN,
   CREATE_ONE_OPERATION_SUCCESS,
   CREATE_ONE_OPERATION_ERROR,
-} from '../actions'
+  SAVE_ONE_OPERATION_BEGIN,
+  SAVE_ONE_OPERATION_SUCCESS,
+  SAVE_ONE_OPERATION_ERROR,
+} from "../actions"
 
 const operations_reducer = (state, action) => {
   switch (action.type) {
@@ -28,7 +31,7 @@ const operations_reducer = (state, action) => {
       return {
         ...state,
         operations_loading: false,
-        one_operation: action.payload,
+        operations: action.payload,
       }
     case GET_ONE_OPERATION_ERROR:
       return { ...state, operations_loading: false, one_operations_error: true }
@@ -44,7 +47,31 @@ const operations_reducer = (state, action) => {
       return { ...state, operations_loading: true }
 
     case CREATE_ONE_OPERATION_SUCCESS:
-      return { ...state, operations_loading: false }
+      return {
+        ...state,
+        operations_loading: false,
+        one_operation: action.payload,
+      }
+
+    case SAVE_ONE_OPERATION_BEGIN:
+      return {
+        ...state,
+        save_one_operation_loading: true,
+      }
+
+    case SAVE_ONE_OPERATION_ERROR:
+      return {
+        ...state,
+        save_one_operation_error: true,
+      }
+
+    case SAVE_ONE_OPERATION_SUCCESS:
+      console.log("dd")
+      return {
+        ...state,
+        save_one_operation_loading: false,
+        one_operation: null,
+      }
 
     default:
       throw new Error(`No Matching "${action.type}" - action type`)

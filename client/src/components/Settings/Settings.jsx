@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
-import * as React from 'react'
-import styles from './settings.module.css'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react"
+import styles from "./settings.module.css"
+import { Link } from "react-router-dom"
 import {
   Typography,
   Container,
@@ -14,21 +13,26 @@ import {
   IconButton,
   ListItemAvatar,
   Fab,
-} from '@mui/material'
+} from "@mui/material"
 
-import DeleteIcon from '@mui/icons-material/Delete'
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt'
-import AddIcon from '@mui/icons-material/Add'
-import { useSettingsContext } from '../../context/settings_context'
+import DeleteIcon from "@mui/icons-material/Delete"
+import ElectricBoltIcon from "@mui/icons-material/ElectricBolt"
+import AddIcon from "@mui/icons-material/Add"
+import { useSettingsContext } from "../../context/settings_context"
 
 function Item(props) {
-  const { tariff, deleteAndRefresh } = props
+  const { deleteOneSetting, fetchSettings } = useSettingsContext()
+  const { name, cost, id } = props
+  const clickHandler = (id) => {
+    deleteOneSetting(id)
+    fetchSettings()
+  }
 
   return (
     <ListItem
       sx={{
-        '&:hover': {
-          color: 'grey',
+        "&:hover": {
+          color: "grey",
         },
       }}
       secondaryAction={
@@ -36,7 +40,7 @@ function Item(props) {
           edge="end"
           aria-label="delete"
           onClick={(e) => {
-            deleteAndRefresh(tariff._id)
+            clickHandler(id)
           }}
         >
           <DeleteIcon />
@@ -50,33 +54,30 @@ function Item(props) {
       </ListItemAvatar>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        <ListItemText primary={tariff.name} secondary={`${tariff.cost} UAH`} />
+        <ListItemText primary={name} secondary={`${cost} UAH`} />
       </Box>
     </ListItem>
   )
 }
 
 function ListofTariffs(props) {
-  const { deleteOneSetting } = useSettingsContext()
-  const { renderData, refresh, setRefresh } = props
-
-  const deleteAndRefresh = (id) => {
-    deleteOneSetting(id)
-    setRefresh(!refresh)
-  }
-
+  const { settings } = useSettingsContext()
+  const [refresh, setRefresh] = useState(true)
   return (
-    <List sx={{ m: '4rem 0rem 0rem 0rem' }}>
-      {renderData.map((tariff) => {
+    <List sx={{ m: "4rem 0rem 0rem 0rem" }}>
+      {settings.map((tariff) => {
         return (
           <Item
             key={tariff._id}
-            tariff={tariff}
-            deleteAndRefresh={deleteAndRefresh}
+            id={tariff._id}
+            refresh={refresh}
+            name={tariff.name}
+            cost={tariff.cost}
+            setRefresh={setRefresh}
           />
         )
       })}
@@ -85,40 +86,27 @@ function ListofTariffs(props) {
 }
 
 function Settings() {
-  const { settings, settings_loading, settings_error, fetchSettings } =
-    useSettingsContext()
-  const [refresh, setRefresh] = useState(false)
-  const renderData = settings.settings ? settings.settings : []
-
-  useEffect(() => {
-    fetchSettings()
-  }, [refresh])
-
   return (
     <Container maxWidth="sm">
       <Box
         sx={{
-          textAlign: 'center',
-          m: '1rem 0rem 0rem 0rem',
+          textAlign: "center",
+          m: "1rem 0rem 0rem 0rem",
         }}
       >
         <span className={styles.title}>Settings</span>
         <div>
-          <ListofTariffs
-            renderData={renderData}
-            refresh={refresh}
-            setRefresh={setRefresh}
-          />
+          <ListofTariffs />
         </div>
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'right',
-          m: '2rem 0rem 0rem 0rem',
+          display: "flex",
+          justifyContent: "right",
+          m: "2rem 0rem 0rem 0rem",
         }}
       >
-        <Link to={'/createTariff'}>
+        <Link to={"/createTariff"}>
           <Fab>
             <AddIcon />
           </Fab>

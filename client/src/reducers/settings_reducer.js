@@ -8,6 +8,7 @@ import {
   DELETE_SETTING_BEGIN,
   DELETE_SETTING_SUCCESS,
   DELETE_SETTING_ERROR,
+  CHANGE_CURRENT_TARIFF
 } from '../actions'
 
 const settings_reducer = (state, action) => {
@@ -45,6 +46,12 @@ const settings_reducer = (state, action) => {
         ...state,
         delete_setting_loading: false,
         delete_setting_error: true,
+      }
+    
+    case CHANGE_CURRENT_TARIFF:
+      return {
+        ...state,
+        current_tariff: action.payload
       }
     default:
       throw new Error(`No Matching "${action.type}" - action type`)

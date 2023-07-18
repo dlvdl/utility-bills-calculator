@@ -1,71 +1,47 @@
-import React from 'react'
-import styles from './form.module.css'
-import { useState, useEffect } from 'react'
-import { computeCost, saveRecord } from '../../utility/computeCost'
-import { useOperationsContext } from '../../context/operations_context'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { Button } from '@mui/material'
-import { changeMonth } from '../../utility/changeMonth'
-import { TariffSelect } from '../index'
+import styles from "./form.module.css"
+import { useState, useEffect } from "react"
+import { useOperationsContext } from "../../context/operations_context"
+import { useSettingsContext } from "../../context/settings_context"
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import { Button, TextField } from "@mui/material"
+import { changeMonth } from "../../utility/changeMonth"
+import { TariffSelect } from "../index"
+import { Factory } from "../../utility/factory"
 
 function Form(props) {
-  const { createOneOperation, create_one_operation_error } =
-    useOperationsContext()
-  const { typeOfUtility, units, today, setDate, serverUrl, setServerUrl } =
-    props
-  const [inputValue, setInputValue] = useState({
-    current: 0,
-    previous: 0,
-    tariff: 0,
-  })
-  const [result, setResult] = useState({ res: 0, diff: 0 })
-  const [computed, setCompute] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const {
+    createOneOperation,
+    create_one_operation_error,
+    one_operation,
+    operations_loading,
+    saveOneOperation,
+  } = useOperationsContext()
+  const { current_tariff } = useSettingsContext()
 
-  // This useEffect hook triggers when we change the value in the input
-  useEffect(() => {
-    // Create istance of utility calculator
-    const { value } = computeCost(
-      inputValue.tariff,
-      inputValue.previous,
-      inputValue.current
-    )
-
-    // Cheking whether difference greater than zero
-    if (value.difference >= 0 && value.cost > 0) {
-      setResult({ ...result, res: value.cost, diff: value.difference })
-      setCompute(true)
-      return
-    }
-
-    setResult({ res: 0, diff: 0 })
-    setCompute(false)
-  }, [inputValue])
+  const { typeOfUtility, units, today, setDate } = props
+  const [inputValue, setInputValue] = useState({ current: 0, previous: 0 })
 
   // Event listeners
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!computed) return
+    const { current, previous } = inputValue
+    const { name, cost } = current_tariff
 
-    const params = {
-      tariff: inputValue.tariff,
-      previousReadings: inputValue.previous,
-      currentReadings: inputValue.current,
-      date: new Date(today),
-      service: typeOfUtility,
-      paid: true,
+    if (current <= 0) {
+      return
     }
 
-    const { value } = saveRecord(params)
-    createOneOperation(value)
+    const operationsSchema = new Factory("Record", {
+      currReadings: current,
+      prevReadings: previous,
+      service: name,
+      tariff: cost,
+    })
 
-    setSaved(true)
-    setTimeout(() => {
-      setSaved(false)
-    }, 3000)
-
-    setInputValue({ ...inputValue, current: 0, previous: 0 })
+    if (operationsSchema) {
+      createOneOperation(operationsSchema)
+    }
   }
 
   const changeDateHandler = (e) => {
@@ -77,17 +53,19 @@ function Form(props) {
   }
 
   const onChangeInputHandler = (e) => {
-    if (e.target.name === 'current') {
+    if (e.target.name === "current") {
       setInputValue({ ...inputValue, current: Number(e.target.value) })
     }
 
-    if (e.target.name === 'previous') {
+    if (e.target.name === "previous") {
       setInputValue({ ...inputValue, previous: Number(e.target.value) })
     }
   }
 
-  const onSelectTariffHandler = (cost) => {
-    setInputValue({ ...inputValue, tariff: cost })
+  const saveButtonHandler = (e) => {
+    saveOneOperation(one_operation)
+    setInputValue({ current: 0, previous: 0 })
+    console.log(one_operation)
   }
 
   return (
@@ -95,65 +73,82 @@ function Form(props) {
       <div className="flex f-justify-content-center">
         <Button onClick={changeDateHandler}>
           <ArrowBackIosIcon
-            sx={{ pointerEvents: 'none', cursor: 'not-allowed' }}
+            sx={{ pointerEvents: "none", cursor: "not-allowed" }}
           />
         </Button>
         <h3>
-          {new Date(today).toLocaleString('default', {
-            month: 'long',
-            year: 'numeric',
+          {new Date(today).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
           })}
         </h3>
         <Button onClick={changeDateHandler}>
           <ArrowForwardIosIcon
-            sx={{ pointerEvents: 'none', cursor: 'not-allowed' }}
+            sx={{ pointerEvents: "none", cursor: "not-allowed" }}
           />
         </Button>
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div>
-          <input
+          {/* <input
             type="number"
             name="current"
             value={Number(inputValue.current).toString()}
             onChange={onChangeInputHandler}
-          />
-          <label htmlFor="current">Current {units.get(typeOfUtility)}</label>
+          /> */}
+          <TextField
+            required
+            id="outlined-required"
+            label="Current readings"
+            name="current"
+            alue={Number(inputValue.current).toString()}
+            onChange={onChangeInputHandler}
+            fullWidth
+          ></TextField>
         </div>
 
         <div>
-          <input
-            type="number"
+          <TextField
+            required
+            id="outlined-required"
+            label="Previous readings"
             name="previous"
-            value={Number(inputValue.previous).toString()}
+            alue={Number(inputValue.p).toString()}
             onChange={onChangeInputHandler}
-          />
-          <label htmlFor="previous">Previous {units.get(typeOfUtility)}</label>
+            fullWidth
+          ></TextField>
         </div>
-        {saved && (
+
+        <div className="flex">
+          <TariffSelect />
+        </div>
+
+        {false && (
           <div
             className={`flex f-justify-content-center ${
-              create_one_operation_error ? 'error' : 'success'
+              create_one_operation_error ? "error" : "success"
             }`}
           >
             {create_one_operation_error
-              ? 'Record doesn`t created'
-              : 'Record created'}
+              ? "Record doesn`t created"
+              : "Record created"}
           </div>
         )}
-        <div className="flex">
-          <TariffSelect onSelectTariffHandler={onSelectTariffHandler} />
-        </div>
 
-        {computed && (
+        {one_operation !== null && (
           <div className="flex f-justify-content-center">
-            <p>Result:</p>
-            <p>{result.res}</p>
+            <p>Cost:</p>
+            <p>{one_operation.cost} UAH</p>
           </div>
         )}
 
         <div className="flex f-justify-content-center">
-          <button type="submit">Save</button>
+          <button type="submit">Create</button>
+          {one_operation ? (
+            <button onClick={saveButtonHandler}>Save</button>
+          ) : (
+            ""
+          )}
         </div>
       </form>
     </div>
